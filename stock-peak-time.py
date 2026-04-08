@@ -4,11 +4,11 @@ import pandas as pd
 
 def analysiere_aktien_metrik(ticker_symbol):
     # 1. Daten herunterladen (letzte 5 Jahre für den Kontext)
-    df = yf.download(ticker_symbol, period="5y")
+    df = yf.download(ticker_symbol, period="5y", multi_level_index=False)
     if df.empty: return "Keine Daten gefunden."
 
     # 2. Aktuellen Kurs und Allzeithoch (ATH) ermitteln
-    aktueller_kurs = df['Close'].iloc[-1]
+    aktueller_kurs = float(df['Close'].iloc[-1])
     ath_datum = df['Close'].idxmax()
     ath_kurs = df['Close'].max()
 
