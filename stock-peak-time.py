@@ -1,6 +1,9 @@
 import yfinance as yf
+import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
+
+matplotlib.use('QtAgg')
 
 def analysiere_aktien_metrik(ticker_symbol):
     # 1. Daten herunterladen (letzte 5 Jahre für den Kontext)
