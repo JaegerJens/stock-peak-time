@@ -1,0 +1,23 @@
+# Python-spezifisch
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# Virtuelle Umgebung (uv nutzt standardmäßig .venv)
+.venv/
+venv/
+ENV/
+
+# uv-spezifisch
+# Hinweis: Die uv.lock-Datei sollte NICHT ignoriert werden, 
+# damit deine Analysen reproduzierbar bleiben!
+.uv/
+
+# Betriebssystem-Dateien
+.DS_Store
+Thumbs.db
+
+# IDE-spezifisch (optional)
+.vscode/
+.idea/
