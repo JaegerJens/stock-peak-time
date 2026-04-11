@@ -47,6 +47,10 @@ def analysiere_aktien_metrik(ticker_symbol):
     plt.hlines(y=aktueller_kurs, xmin=paritaet_index, xmax=df.index[-1], color='black', linestyle='--')
     plt.text(paritaet_index, aktueller_kurs * 1.05, f' {zeit_differenz} Tage Differenz', fontweight='bold')
 
+    # Senkrechte durch ATH bis zur Verbindungslinie
+    plt.vlines(x=ath_datum, ymin=aktueller_kurs, ymax=ath_kurs, color='purple', linestyle='--', label='ATH zu aktueller Kurs')
+    plt.text(ath_datum, (ath_kurs + aktueller_kurs) / 2, f' {verlust_prozent:.2f}% Verlust', fontweight='bold', rotation=90)
+
     plt.title(f'Symmetrie-Metrik für {ticker_symbol}')
     plt.legend()
     plt.grid(True, alpha=0.3)
