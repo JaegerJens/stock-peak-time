@@ -15,10 +15,16 @@ def analysiere_aktien_metrik(ticker_symbol):
     ath_datum = df['Close'].idxmax()
     ath_kurs = df['Close'].max()
 
-    # 3. Den Punkt VOR dem ATH suchen, der dem aktuellen Kurs entspricht
+    # 3. Den Punkt VOR dem ATH suchen, der dem aktuellen Kurs entspricht (innerhalb des Tagesbereichs Low-High)
     vor_peak_df = df.loc[:ath_datum]
-    # Finde den Index mit der geringsten Differenz zum heutigen Preis
-    paritaet_index = (vor_peak_df['Close'] - aktueller_kurs).abs().idxmin()
+    # Finde Tage, wo der aktuelle Kurs zwischen Low und High liegt
+    mask = (vor_peak_df['Low'] <= aktueller_kurs) & (vor_peak_df['High'] >= aktueller_kurs)
+    if mask.any():
+        # Wähle den Punkt, der am nächsten zum ATH ist (der letzte in der gefilterten Liste)
+        paritaet_index = vor_peak_df[mask].index[-1]
+    else:
+        # Fallback: Verwende den Index mit der geringsten Differenz zum Close (wie vorher)
+        paritaet_index = (vor_peak_df['Close'] - aktueller_kurs).abs().idxmin()
     paritaet_datum = paritaet_index.date()
 
     # 4. Zeitdifferenz berechnen
