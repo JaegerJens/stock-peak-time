@@ -2,6 +2,7 @@ import yfinance as yf
 import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
+import sys
 
 matplotlib.use('QtAgg')
 
@@ -58,7 +59,11 @@ def analysiere_aktien_metrik(ticker_symbol):
 
     return zeit_differenz, verlust_prozent
 
-# Beispielaufruf für eine Aktie (z.B. Microsoft)
-tage, verlust = analysiere_aktien_metrik("MSFT")
-print(f"Die Zeitdifferenz beträgt {tage} Tage.")
-print(f"Der aktuelle Kursverlust zum ATH beträgt {verlust:.2f}%.")
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        ticker = sys.argv[1]
+    else:
+        ticker = "MSFT"  # Default
+    tage, verlust = analysiere_aktien_metrik(ticker)
+    print(f"Die Zeitdifferenz beträgt {tage} Tage.")
+    print(f"Der aktuelle Kursverlust zum ATH beträgt {verlust:.2f}%.")
