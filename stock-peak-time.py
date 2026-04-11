@@ -15,6 +15,9 @@ def analysiere_aktien_metrik(ticker_symbol):
     ath_datum = df['Close'].idxmax()
     ath_kurs = df['Close'].max()
 
+    # Kursverlust zum ATH berechnen
+    verlust_prozent = ((ath_kurs - aktueller_kurs) / ath_kurs) * 100
+
     # 3. Den Punkt VOR dem ATH suchen, der dem aktuellen Kurs entspricht (innerhalb des Tagesbereichs Low-High)
     vor_peak_df = df.loc[:ath_datum]
     # Finde Tage, wo der aktuelle Kurs zwischen Low und High liegt
@@ -49,8 +52,9 @@ def analysiere_aktien_metrik(ticker_symbol):
     plt.grid(True, alpha=0.3)
     plt.show()
 
-    return zeit_differenz
+    return zeit_differenz, verlust_prozent
 
 # Beispielaufruf für eine Aktie (z.B. Microsoft)
-tage = analysiere_aktien_metrik("MSFT")
+tage, verlust = analysiere_aktien_metrik("MSFT")
 print(f"Die Zeitdifferenz beträgt {tage} Tage.")
+print(f"Der aktuelle Kursverlust zum ATH beträgt {verlust:.2f}%.")
